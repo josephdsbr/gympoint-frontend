@@ -16,6 +16,7 @@ export default function PlanList() {
     async function getPlanData() {
       const response = await api.get('/plans');
       const plans = response.data.map(x => ({
+        id: x.id,
         name: x.title,
         email: `${x.duration} ${x.duration === 1 ? 'month' : 'months'}`,
         age: x.price.toLocaleString('pt-BR', {
@@ -37,6 +38,8 @@ export default function PlanList() {
         columns={column}
         data={data}
         description="Find a plan"
+        url="/plan-register"
+        save="/plan-edit"
       />
     </Container>
   );

@@ -1,11 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Content } from './styles';
 import history from '~/services/history';
 
-export default function Table({ title, columns, data, description, url }) {
+export default function Table({
+  title,
+  columns,
+  data,
+  description,
+  url,
+  save,
+}) {
   function handleHistory() {
     history.push(url);
   }
+
+  function handleSave(id) {
+    history.push(save, { id });
+  }
+
   return (
     <Container>
       <header>
@@ -25,11 +37,17 @@ export default function Table({ title, columns, data, description, url }) {
         </tr>
         {data.map(row => (
           <tr>
-            {Object.values(row).map(info => (
-              <td>{info}</td>
-            ))}
+            {Object.values(row)
+              .slice(1, row.lenght)
+              .map(info => (
+                <td>{info}</td>
+              ))}
             <td className="edit">
-              <button type="button" className="change">
+              <button
+                type="button"
+                className="change"
+                onClick={() => handleSave(row.id)}
+              >
                 editar
               </button>
               <button type="button" className="clean">

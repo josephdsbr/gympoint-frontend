@@ -12,6 +12,7 @@ export default function StudentList() {
     async function getStudentData() {
       const response = await api.get('/students');
       const students = response.data.map(x => ({
+        id: x.id,
         name: x.name,
         email: x.email,
         age: x.age,
@@ -31,6 +32,7 @@ export default function StudentList() {
         data={data}
         description="Find a student"
         url="/student-register"
+        save="/student-edit"
       />
     </Container>
   );

@@ -1,44 +1,53 @@
-import React from 'react';
-import { Form, Input } from '@rocketseat/unform';
-import { toast } from 'react-toastify';
+import React, { useEffect, useState } from 'react';
+
+import { Input, Form } from '@rocketseat/unform';
+import api from '~/services/api';
 import {
   Container,
   Content,
-  Info,
-  Option,
   FormHeader,
   FormBody,
+  Option,
+  Info,
 } from './styles';
-import api from '~/services/api';
-import history from '~/services/history';
 
-export default function StudentRegister() {
-  async function handleSubmit(
-    { name, email, age, weight, height },
-    { resetForm }
-  ) {
+export default function StudentEdit({ location }) {
+  const [data, setData] = useState({});
+  const [id, setId] = useState();
+
+  useEffect(() => {
+    const { id } = location.state;
+
+    async function getStudent(studentId) {
+      const response = await api.get(`/students/${studentId}`);
+      setId(id);
+      setData(response.data);
+    }
+
+    getStudent(id);
+  }, []);
+
+  async function onHandleSubmit({ name, email, age, weight, height }) {
     try {
-      await api.post('/students', {
+      const response = await api.put('/students', {
+        id,
         name,
         email,
         age,
         weight,
         height,
       });
-
-      toast(`Student: ${name} was registered with email: ${email}`);
-
-      history.push('/student-list');
     } catch (err) {
-      toast.error('An error ocurred, please try again');
+      console.log(`ERROR: ${err}`);
     }
   }
+
   return (
     <Container>
       <Content>
-        <Form onSubmit={handleSubmit}>
+        <Form initialData={data} onSubmit={onHandleSubmit}>
           <FormHeader>
-            <h1>Student Register</h1>
+            <h1>Student Edit</h1>
             <aside>
               <button type="button" className="back">
                 BACK
