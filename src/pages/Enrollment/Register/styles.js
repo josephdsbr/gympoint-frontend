@@ -62,7 +62,8 @@ export const FormBody = styled.div`
     color: #444444;
   }
 
-  input {
+  input,
+  select {
     width: 100%;
     margin: 10px 0;
     border: 1px solid #dddddd;

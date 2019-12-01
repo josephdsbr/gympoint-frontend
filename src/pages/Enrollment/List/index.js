@@ -19,7 +19,9 @@ export default function EnrollmentList() {
   useEffect(() => {
     async function getEnrollmentData() {
       const response = await api.get('/enrollments');
+
       const plans = response.data.map(x => ({
+        id: x.id,
         name: x.student.name,
         plan: x.plan.title,
         start: format(parseISO(x.start_date), "dd'/'mm'/'yyyy"),
@@ -40,6 +42,8 @@ export default function EnrollmentList() {
         columns={column}
         data={data}
         description="Find a enrollment"
+        url="/enrollment-register"
+        save="/enrollment-edit"
       />
     </Container>
   );
