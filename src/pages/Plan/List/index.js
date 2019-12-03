@@ -4,7 +4,7 @@ import Table from '~/Components/Table';
 import api from '~/services/api';
 
 export default function PlanList() {
-  const [title, setTitle] = useState('Gerenciando Alunos');
+  const [title, setTitle] = useState('Plan Manager');
   const [column, setColumn] = useState([
     'TITLE',
     'DURATION',

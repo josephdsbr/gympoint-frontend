@@ -45,6 +45,7 @@ export const Container = styled.div`
     border-radius: 10px;
     tr {
       border-bottom: 1px solid rgba(151, 151, 151, 0.6);
+
       td {
         padding: 4px 0;
       }

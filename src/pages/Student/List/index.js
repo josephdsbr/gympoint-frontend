@@ -4,7 +4,7 @@ import Table from '~/Components/Table';
 import api from '~/services/api';
 
 export default function StudentList() {
-  const [title, setTitle] = useState('Gerenciando Alunos');
+  const [title, setTitle] = useState('Student Manager');
   const [column, setColumn] = useState(['NAME', 'EMAIL', 'IDADE']);
   const [data, setData] = useState([]);
 

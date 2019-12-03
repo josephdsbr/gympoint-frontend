@@ -16,14 +16,9 @@ import api from '~/services/api';
 import history from '~/services/history';
 
 export default function EnrollmentRegister() {
-  const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState(new Date());
   const [plans, setPlans] = useState([]);
   const [selectedPlan, setSelectedPlan] = useState({});
-
-  useEffect(() => {
-    const newDate = new Date();
-    setStartDate(format(newDate, 'dd/MM/yyyy'));
-  }, [selectedPlan]);
 
   useEffect(() => {
     async function loadPlans() {
@@ -40,7 +35,7 @@ export default function EnrollmentRegister() {
   }
 
   function handleBack() {
-    history.push('student-list');
+    history.goBack();
   }
 
   const price = useMemo(
@@ -49,11 +44,13 @@ export default function EnrollmentRegister() {
   );
 
   const finalDate = useMemo(() => {
-    // const d = new Date(startDate);
-    // const e = selectedPlan.id
-    //   ? new Date(d.setMonth(d.getMonth() + selectedPlan.duration))
-    //   : d;
-    // return format(e, 'MM/dd/yyyy');
+    if (selectedPlan.id) {
+      const d = new Date(startDate.getTime());
+      const e = selectedPlan.id
+        ? new Date(d.setMonth(d.getMonth() + selectedPlan.duration))
+        : d;
+      return format(e, 'MM/dd/yyyy');
+    }
   }, [selectedPlan, startDate]);
 
   return (
@@ -61,7 +58,7 @@ export default function EnrollmentRegister() {
       <Content>
         <Form>
           <FormHeader>
-            <h1>Student Register</h1>
+            <h1>Enrollment Register</h1>
             <aside>
               <button type="button" className="back" onClick={handleBack}>
                 BACK
@@ -88,15 +85,15 @@ export default function EnrollmentRegister() {
               </Option>
               <Option>
                 <label htmlFor="start_date">START DATE</label>
-                <Input
+                <DatePicker
                   name="start_date"
                   value={startDate}
-                  onChange={e => console.log(e.target.value)}
+                  setStartDate={setStartDate}
                 />
               </Option>
               <Option>
                 <label htmlFor="end_date">END DATE</label>
-                <Input name="end_date" value={finalDate} />
+                <Input name="end_date" value={finalDate} disabled />
               </Option>
               <Option>
                 <label htmlFor="final_value">FINAL VALUE</label>

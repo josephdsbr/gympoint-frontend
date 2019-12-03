@@ -11,6 +11,8 @@ import {
   Info,
 } from './styles';
 
+import history from '~/services/history';
+
 export default function PlanEdit({ location }) {
   const [data, setData] = useState({});
   const [id, setId] = useState();
@@ -44,6 +46,10 @@ export default function PlanEdit({ location }) {
     }
   }
 
+  async function onHandleBack() {
+    history.goBack();
+  }
+
   return (
     <Container>
       <Content>
@@ -51,7 +57,7 @@ export default function PlanEdit({ location }) {
           <FormHeader>
             <h1>Plan Edit</h1>
             <aside>
-              <button type="button" className="back">
+              <button type="button" className="back" onClick={onHandleBack}>
                 BACK
               </button>
               <button type="submit" className="save">

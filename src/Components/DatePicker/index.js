@@ -5,10 +5,15 @@ import { useField } from '@rocketseat/unform';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
-export default function DatePicker({ name, value, disabled }) {
+export default function DatePicker({ name, setStartDate, value }) {
   const ref = useRef(null);
   const { fieldName, registerField, defaultValue, error } = useField(name);
-  const [selected, setSelected] = useState(value);
+  const [selected, setSelected] = useState(defaultValue);
+
+  function onHandleUpdateDate(date) {
+    setSelected(date);
+    setStartDate(date);
+  }
 
   useEffect(() => {
     registerField({
@@ -24,10 +29,9 @@ export default function DatePicker({ name, value, disabled }) {
   return (
     <>
       <ReactDatePicker
-        disabled={disabled}
         name={fieldName}
-        selected={selected}
-        onChange={date => setSelected(date)}
+        selected={value}
+        onChange={date => onHandleUpdateDate(date)}
         ref={ref}
       />
       {error && <span>{error}</span>}

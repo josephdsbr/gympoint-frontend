@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import HelpAnswer from '~/pages/Help/Answer';
 
 import {
@@ -16,7 +15,7 @@ import api from '~/services/api';
 export default function HelpList() {
   const [data, setData] = useState([]);
   const [info, setInfo] = useState({ question: '' });
-  const [close, setClose] = useState(true);
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     async function loadStudent() {
@@ -30,15 +29,19 @@ export default function HelpList() {
   async function handleQuestionAnswer(id) {
     const response = await api.get(`/help-others/${id}/info`);
     setInfo(response.data);
-    setClose(false);
+    setShow(false);
+  }
+
+  function onHandleClose() {
+    setShow(true);
   }
 
   return (
     <Container>
       <Wrapper>
-        <Title>Pedidos de Auxílio</Title>
+        <Title>Help</Title>
         <Content>
-          <HelpAnswer info={info} disabled={close} />
+          <HelpAnswer info={info} onHandleClose={onHandleClose} show={show} />
           <ContentBody>
             <h2>Student</h2>
             {data.map(request => (

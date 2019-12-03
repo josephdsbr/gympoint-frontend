@@ -35,7 +35,7 @@ export default function StudentRegister() {
   }
 
   function handleBack() {
-    history.push('student-list');
+    history.goBack();
   }
   return (
     <Container>

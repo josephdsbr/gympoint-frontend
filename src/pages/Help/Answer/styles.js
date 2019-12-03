@@ -27,13 +27,15 @@ export const Header = styled.div`
   h1 {
     order: 0;
   }
+
+  button {
+    order: 1;
+    background: none;
+    border: none;
+  }
 `;
 
-export const Button = styled.button`
-  order: 1;
-  background: none;
-  border: none;
-`;
+export const Button = styled.button``;
 
 export const Content = styled.div`
   background: rgba(255, 255, 255);

@@ -11,6 +11,8 @@ import {
   Info,
 } from './styles';
 
+import history from '~/services/history';
+
 export default function PlanRegister() {
   const [durationValue, setDurationValue] = useState(0);
   const [priceValue, setPriceValue] = useState(0);
@@ -27,14 +29,18 @@ export default function PlanRegister() {
     }
   }
 
+  function onHandleBack() {
+    history.goBack();
+  }
+
   return (
     <Container>
       <Content>
         <Form onSubmit={onHandleSubmit}>
           <FormHeader>
-            <h1>Plan Edit</h1>
+            <h1>Plan Register</h1>
             <aside>
-              <button type="button" className="back">
+              <button type="button" className="back" onClick={onHandleBack}>
                 BACK
               </button>
               <button type="submit" className="save">

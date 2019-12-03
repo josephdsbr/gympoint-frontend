@@ -6,7 +6,7 @@ import Table from '~/Components/Table';
 import api from '~/services/api';
 
 export default function EnrollmentList() {
-  const [title, setTitle] = useState('Gerenciando Matrículas');
+  const [title, setTitle] = useState('Enrollment Manager');
   const [column, setColumn] = useState([
     'STUDENT',
     'PLAN',

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-
 import { Input, Form } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
+import history from '~/services/history';
 import api from '~/services/api';
 import {
   Container,
@@ -16,7 +17,7 @@ export default function StudentEdit({ location }) {
   const [id, setId] = useState();
 
   useEffect(() => {
-    const { id } = location.state;
+    const { id: studentId } = location.state;
 
     async function getStudent(studentId) {
       const response = await api.get(`/students/${studentId}`);
@@ -24,8 +25,12 @@ export default function StudentEdit({ location }) {
       setData(response.data);
     }
 
-    getStudent(id);
+    getStudent(studentId);
   }, []);
+
+  function onHandleBack() {
+    history.goBack();
+  }
 
   async function onHandleSubmit({ name, email, age, weight, height }) {
     try {
@@ -37,6 +42,7 @@ export default function StudentEdit({ location }) {
         weight,
         height,
       });
+      history.push('/history-list');
     } catch (err) {
       console.log(`ERROR: ${err}`);
     }
@@ -49,7 +55,7 @@ export default function StudentEdit({ location }) {
           <FormHeader>
             <h1>Student Edit</h1>
             <aside>
-              <button type="button" className="back">
+              <button type="button" className="back" onClick={onHandleBack}>
                 BACK
               </button>
               <button type="submit" className="save">
@@ -90,3 +96,7 @@ export default function StudentEdit({ location }) {
     </Container>
   );
 }
+
+StudentEdit.propTypes = {
+  location: PropTypes.object,
+};
