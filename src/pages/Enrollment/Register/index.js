@@ -53,6 +53,8 @@ export default function EnrollmentRegister() {
     }
   }, [selectedPlan, startDate]);
 
+  function onHandleSubmit({}) {}
+
   return (
     <Container>
       <Content>

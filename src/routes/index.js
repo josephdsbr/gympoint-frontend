@@ -10,6 +10,7 @@ import PlanEdit from '~/pages/Plan/Edit';
 import PlanRegister from '~/pages/Plan/Register';
 import StudentRegister from '~/pages/Student/Register';
 import EnrollmentList from '~/pages/Enrollment/List';
+import EnrollmentEdit from '~/pages/Enrollment/Edit';
 import EnrollmentRegister from '~/pages/Enrollment/Register';
 import StudentEdit from '~/pages/Student/Edit';
 import HelpList from '~/pages/Help/List';
@@ -35,6 +36,12 @@ export default function Routes() {
         path="/enrollment-register"
         exact
         component={EnrollmentRegister}
+        isPrivate
+      />
+      <Route
+        path="/enrollment-edit"
+        exact
+        component={EnrollmentEdit}
         isPrivate
       />
       <Route
